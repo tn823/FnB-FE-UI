@@ -1,0 +1,139 @@
+.food-item{
+    width: 80%;
+    margin: 10px auto;
+    border-radius: 15px;
+    animation: fadeIn 1s;
+}
+.food-item:hover{
+    box-shadow: 4px 4px 8px 8px #C7C8CC;
+    transition: 0.2s;
+}
+.food-item-image{
+    width: 100%;
+    border-radius: 15px 15px 0px 0px;
+}
+.food-item-info{
+    padding: 20px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.food-item-name-rating{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.food-item-name p{
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.food-item-desc{
+    color: #000;
+    font-size: 15px;
+    font-weight: 400;
+    flex-grow: 1;
+}
+.food-item-price{
+    color: tomato;
+    font-size: 22px;
+    font-weight: 750;
+    margin: 10px 0px;
+    align-self: flex-end;
+}
+.food-item-img-container{
+    position: relative;
+}
+.food-item-img-container .add{
+    width: 35px;
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    border-radius: 50%;
+}
+.food-item-counter{
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px;
+    border-radius: 50px;
+    background-color: #fafaf9;
+} 
+.food-item-counter img{
+    width: 25px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 1050px) {
+    .food-item {
+        margin: 10px auto;
+        box-shadow: 3px 3px 6px #00000015;    
+    }
+    .food-item-name-rating p {
+        font-size: 18px; 
+    }
+    .food-item-desc {
+        font-size: 11px;
+    }
+    .food-item-info {
+        height: 180px;
+    }
+}
+
+@media (max-width: 770px) {
+    .food-item {
+        width: 80%;
+        margin: 5px auto;
+        box-shadow: 2px 2px 5px #00000015;    
+    }
+    .food-item-image{
+        width: 100%;
+    }
+    .food-item-name p {
+        font-size: 16px; 
+    }
+    .food-item-desc {
+        font-size: 10px;
+    }
+    .food-item-price {
+        font-size: 15px;
+    }
+    .food-item-info {
+        height: 160px;
+    }
+}
+
+@media (max-width: 480px) {
+    .food-item {
+        width: 90%;
+        margin: 2px auto;
+        box-shadow: 1px 1px 2px #00000015;  
+    }
+    .food-item-name p {
+        font-size: 14px; 
+    }
+    .food-item-desc {
+        font-size: 10px;
+    }
+    .food-item-price {
+        font-size: 10px;
+    }
+    .food-item-counter {
+        bottom: 4px;
+        right: 4px;
+        gap: 1px;
+        padding: 2px;
+    }
+    .food-item-counter img {
+        width: 16px;
+    }
+    .food-item-info {
+        height: 140px;
+    }
+}

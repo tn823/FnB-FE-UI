@@ -1,0 +1,98 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  ::-moz-selection {
+    background: #d1d1c7;
+  }
+  ::-webkit-selection {
+    background: #d1d1c7;
+  }
+  ::selection {
+    background: #d1d1c7;
+  }
+  /* .text-smooth {
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  } */
+  @media (min-width: 640px) {
+    * {
+      /* cursor: none;*/
+    }
+  }
+}
+
+@layer utilities {
+  nav a:hover ~ .cursor {
+    transform: scale(5);
+    opacity: 0;
+  }
+}
+
+:root {
+  --pad-inner: 52px;
+  --innerWidth: 1816px;
+  --text-size-large: 24px;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: Nunito;
+  scroll-behavior: smooth;
+  background-color: #fafaf9;
+}
+
+body {
+  min-height: 100vh;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.app {
+  width: auto;
+  margin: auto;
+}
+
+/* Responsive */
+@media (max-width: 1280px) {
+  :root {
+    --pad-inner: 40px;
+  }
+}
+
+@media (max-width: 1023px) {
+  :root {
+    --pad-inner: 24px;
+  }
+}
+
+@media (max-width: 576px) {
+  :root {
+    --pad-inner: 16px;
+    --text-size-large: 20px;
+  }
+  .c-heading {
+    padding-top: 300px;
+  }
+  .avatar-name__link {
+    padding-left: 30%;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

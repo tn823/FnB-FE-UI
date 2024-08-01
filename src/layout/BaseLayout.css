@@ -1,0 +1,45 @@
+.page-wrapper {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  flex: 0 0 250px;
+}
+
+.content-wrapper {
+  flex: 1;
+}
+
+/* RESPONSIVE */
+
+/* Màn hình lớn và máy tính bảng */
+@media (max-width: 1050px) {
+  .sidebar {
+    flex: 0 0 150px;
+  }
+}
+
+/* Máy tính bảng và điện thoại lớn */
+@media (max-width: 770px) {
+  .sidebar {
+    flex: 0 0 150px;
+  }
+
+  .content-wrapper {
+    flex: 1;
+    margin-left: 0; 
+  }
+}
+
+/* Điện thoại nhỏ */
+@media (max-width: 480px) {
+  .sidebar {
+    flex: 0 0 150px
+  }
+
+  .content-wrapper {
+    flex: 1;
+    margin-left: 0;
+  }
+}

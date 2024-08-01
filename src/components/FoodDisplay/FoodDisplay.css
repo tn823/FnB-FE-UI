@@ -1,0 +1,155 @@
+.food-display {
+    margin-top: 30px;
+}
+
+.food-display-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    margin-top: 30px;
+    gap: 0px;
+    row-gap: 25px;
+}
+
+.basket {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background-color: #fafaf9;
+    border: 1px solid #DC5F00;
+    border-radius: 50%;
+    padding: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    cursor: pointer;
+}
+
+.basket img {
+    width: 30px;
+    height: 30px;
+}
+
+.basket .basket-count {
+    position: absolute;
+    width: 16px;
+    top: -5px;
+    right: -5px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 2px;
+    font-size: 10px;
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+}
+
+.order-total {
+    position: fixed;
+    top: 10px;
+    right: 70px;
+    background-color: #fff;
+    border: 1px solid #DC5F00;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    text-align: center;
+}
+
+.order-total p:first-child {
+    font-size: 14px;
+    margin: 0;
+    font-weight: bold;
+}
+
+.order-total p:last-child {
+    margin: 2px 0 0;
+    font-size: 12px;
+    color: #000;
+}
+
+/* RESPONSIVE DESIGN */
+
+/* Tablets and large phones */
+@media (max-width: 770px) {
+    .food-display-list {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 10px;
+        row-gap: 15px;
+    }
+
+    .order-total {
+        right: 70px; 
+        top: 10px; 
+    }
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+    .food-display-list {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+
+    .basket {
+        padding: 5px;
+    }
+
+    .basket img {
+        width: 25px;
+        height: 25px;
+    }
+
+    .basket .basket-count {
+        font-size: 10px;
+        padding: 1px;
+    }
+
+    .order-total {
+        right: 50px;
+        top: 10px; 
+        padding: 5px;
+    }
+
+    .order-total p:first-child {
+        font-size: 12px;
+    }
+
+    .order-total p:last-child {
+        font-size: 10px;
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 320px) {
+    .food-display-list {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    }
+
+    .basket {
+        padding: 3px;
+    }
+
+    .basket img {
+        width: 20px;
+        height: 20px;
+    }
+
+    .basket .basket-count {
+        font-size: 8px;
+        padding: 1px;
+    }
+
+    .order-total {
+        right: 40px;
+        top: 10x;
+        padding: 3px;
+    }
+
+    .order-total p:first-child {
+        font-size: 10px;
+    }
+
+    .order-total p:last-child {
+        font-size: 8px;
+    }
+}
