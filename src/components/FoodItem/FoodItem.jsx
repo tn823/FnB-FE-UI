@@ -4,7 +4,7 @@ import "./FoodItem.css";
 import DetailPopup from "./DetailPopup/DetailPopup ";
 import { StoreContext } from "../context/StoreContext";
 
-const FoodItem = ({ id, name, price, description, image, topping }) => {
+const FoodItem = ({ product }) => {
   const { cartItems, addToCart } = useContext(StoreContext);
   const [showDetailPopup, setShowDetailPopup] = useState(false);
 
@@ -23,29 +23,37 @@ const FoodItem = ({ id, name, price, description, image, topping }) => {
   return (
     <div className="food-item">
       <div className="food-item-img-container">
-        <img className="food-item-image" src={image} alt={name} />
+        <img
+          className="food-item-image"
+          src={product.ProductImages[0]?.url || ""}
+          alt={product.name}
+        />
         <button className="add" onClick={handleShowDetailPopup}>
           +
         </button>
       </div>
       <div className="food-item-info">
         <div className="food-item-name">
-          <p>{name}</p>
+          <p>{product.name}</p>
         </div>
-        <p className="food-item-desc">{description}</p>
-        <p className="food-item-price">{price} vnd</p>
+        <p className="food-item-desc">
+          {product.description || "No description available"}
+        </p>
+        <p className="food-item-price">{product.basePrice} vnd</p>
       </div>
       {showDetailPopup && (
         <DetailPopup
-          id={id}
-          name={name}
-          price={price}
-          description={description}
-          image={image}
-          topping={topping}
+          id={product.id}
+          name={product.name}
+          price={product.basePrice}
+          description={product.description}
+          image={product.ProductImages[0]?.url}
+          topping={product.Attributes}
           onClose={handleCloseDetailPopup}
           onAddToCart={handleAddToCart}
-          cartQuantity={cartItems[id] ? cartItems[id].quantity : 0}
+          cartQuantity={
+            cartItems[product.id] ? cartItems[product.id].quantity : 0
+          }
         />
       )}
     </div>
@@ -53,12 +61,18 @@ const FoodItem = ({ id, name, price, description, image, topping }) => {
 };
 
 FoodItem.propTypes = {
-  id: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  description: PropTypes.string.isRequired,
-  image: PropTypes.string.isRequired,
-  topping: PropTypes.array,
+  product: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    basePrice: PropTypes.number.isRequired,
+    description: PropTypes.string,
+    ProductImages: PropTypes.arrayOf(
+      PropTypes.shape({
+        url: PropTypes.string,
+      })
+    ),
+    Attributes: PropTypes.array,
+  }).isRequired,
 };
 
 export default FoodItem;

@@ -1,34 +1,40 @@
 import "./FoodDisplay.css";
 import PropTypes from "prop-types";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import FoodItem from "../FoodItem/FoodItem";
 import { assets } from "./../../assets/assets";
 import { StoreContext } from "../context/StoreContext";
 
 const FoodDisplay = ({ category = "All" }) => {
-  const { food_list, getTotalCartQuantity, getTotalCartAmount } =
-    useContext(StoreContext);
+  const { getTotalCartQuantity, getTotalCartAmount } = useContext(StoreContext);
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch("https://fnb-be.vercel.app/api/products");
+        const data = await response.json();
+
+        setProducts(data);
+      } catch (error) {
+        console.error("Error fetching products: ", error);
+      }
+    };
+    fetchProducts();
+  }, []);
 
   return (
     <div className="food-display" id="food-display">
-      <div className="food-display-list">
-        {food_list.map((item, index) => {
-          if (category === "All" || category === item.category) {
-            return (
-              <FoodItem
-                key={index}
-                id={item.id}
-                name={item.name}
-                price={item.basePrice}
-                image={item.image}
-                description={item.description}
-                topping={item.topping}
-              />
-            );
-          }
-          return null;
-        })}
+      <div className="food-items-container">
+        <div className="food-items-grid">
+          {products.map((product) => {
+            if (category === "All" || category === product.category) {
+              return <FoodItem key={product.id} product={product} />;
+            }
+            return null;
+          })}
+        </div>
       </div>
       <div className="basket">
         <Link to="/cart">
