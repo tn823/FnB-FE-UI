@@ -1,5 +1,4 @@
 import { createContext, useState, useEffect } from "react";
-import { food_list } from "../../assets/assets";
 import PropTypes from "prop-types";
 
 export const StoreContext = createContext(null);
@@ -16,19 +15,24 @@ const StoreContextProvider = (props) => {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
   }, [cartItems]);
 
-  const addToCart = (itemId, selectedToppings = []) => {
+  const addToCart = (product, selectedToppings = []) => {
     setCartItems((prevCartItems) => {
-      const cartItemKey = `${itemId}-${selectedToppings.join(",")}`;
-      const product = food_list.find((product) => product.id === itemId);
+      const cartItemKey = `${product.id}-${selectedToppings
+        .map((t) => t.id)
+        .join(",")}`;
 
       const newCartItems = {
         ...prevCartItems,
         [cartItemKey]: {
-          id: itemId,
+          id: product.id,
           name: product.name,
-          price: product.basePrice,
+          price: parseFloat(product.basePrice) || 0,
           quantity: (prevCartItems[cartItemKey]?.quantity || 0) + 1,
-          selectedToppings: selectedToppings,
+          selectedToppings: selectedToppings.map((topping) => ({
+            id: topping.id,
+            name: topping.name || "Unknown",
+            price: parseFloat(topping.basePrice) || 0,
+          })),
         },
       };
       localStorage.setItem("cartItems", JSON.stringify(newCartItems));
@@ -66,11 +70,8 @@ const StoreContextProvider = (props) => {
 
   const getTotalCartAmount = () => {
     return Object.values(cartItems).reduce((total, item) => {
-      const toppingPrices = item.selectedToppings.reduce((sum, toppingId) => {
-        const topping = food_list
-          .find((p) => p.id === item.id)
-          ?.topping.find((t) => t.id === toppingId);
-        return sum + (topping?.basePrice || 0);
+      const toppingPrices = item.selectedToppings.reduce((sum, topping) => {
+        return sum + topping.price;
       }, 0);
       return total + (item.price + toppingPrices) * item.quantity;
     }, 0);
@@ -134,7 +135,6 @@ const StoreContextProvider = (props) => {
   };
 
   const contextValue = {
-    food_list,
     cartItems,
     confirmRemove,
     addToCart,

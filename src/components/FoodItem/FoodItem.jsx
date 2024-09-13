@@ -43,6 +43,7 @@ const FoodItem = ({ product }) => {
       </div>
       {showDetailPopup && (
         <DetailPopup
+          product={product}
           id={product.id}
           name={product.name}
           price={product.basePrice}
@@ -62,9 +63,9 @@ const FoodItem = ({ product }) => {
 
 FoodItem.propTypes = {
   product: PropTypes.shape({
-    id: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
-    basePrice: PropTypes.number.isRequired,
+    basePrice: PropTypes.string.isRequired,
     description: PropTypes.string,
     ProductImages: PropTypes.arrayOf(
       PropTypes.shape({

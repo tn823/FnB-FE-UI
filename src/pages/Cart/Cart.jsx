@@ -6,7 +6,6 @@ import { StoreContext } from "../../components/context/StoreContext";
 
 const Cart = () => {
   const {
-    food_list,
     getTotalCartAmount,
     handleIncreaseQuantity,
     handleDecreaseQuantity,
@@ -22,14 +21,13 @@ const Cart = () => {
     navigate("/home");
   };
 
-  const calculateItemTotal = (item, cartItemKey) => {
-    const basePrice = item.basePrice;
-    const selectedToppings = cartItems[cartItemKey]?.selectedToppings || [];
-    const toppingsPrice = selectedToppings.reduce((total, toppingId) => {
-      const topping = item.topping.find((t) => t.id === toppingId);
-      return total + (topping ? topping.basePrice : 0);
+  const calculateItemTotal = (item) => {
+    const basePrice = parseFloat(item.price);
+    const toppingsPrice = item.selectedToppings.reduce((total, toppingId) => {
+      const topping = item.Toppings?.find((t) => t.id === toppingId);
+      return total + (parseFloat(topping?.basePrice) || 0);
     }, 0);
-    return (basePrice + toppingsPrice) * cartItems[cartItemKey]?.quantity;
+    return (basePrice + toppingsPrice) * item.quantity;
   };
 
   return (
@@ -50,43 +48,32 @@ const Cart = () => {
         </div>
         <br />
         <hr />
-        {Object.keys(cartItems).map((key) => {
-          const item = food_list.find((food) => food.id === key.split("-")[0]);
-          if (item && cartItems[key].quantity > 0) {
-            return (
-              <div key={key}>
-                <div className="cart-items-item">
-                  <p>{item.name}</p>
-                  <div className="cart-item-toppings">
-                    {cartItems[key].selectedToppings &&
-                      cartItems[key].selectedToppings.map((toppingId) => {
-                        const toppingName = item.topping.find(
-                          (t) => t.id === toppingId
-                        )?.name;
-                        return <p key={toppingId}>{toppingName}</p>;
-                      })}
-                  </div>
-                  <p>{item.basePrice} vnd</p>
-                  <div className="quantity-control">
-                    <button onClick={() => handleDecreaseQuantity(key)}>
-                      -
-                    </button>
-                    <p>{cartItems[key].quantity}</p>
-                    <button onClick={() => handleIncreaseQuantity(key)}>
-                      +
-                    </button>
-                  </div>
-                  <p>{calculateItemTotal(item, key)} vnd</p>
-                  <p onClick={() => handleRemoveItem(key)} className="cross">
-                    X
-                  </p>
-                </div>
-                <hr />
+        {Object.entries(cartItems).map(([key, item]) => (
+          <div key={key}>
+            <div className="cart-items-item">
+              <p>{item.name}</p>
+              <div className="cart-item-toppings">
+                {item.selectedToppings.map((toppingId) => {
+                  const toppingName = item.Toppings?.find(
+                    (t) => t.id === toppingId
+                  )?.name;
+                  return <p key={toppingId}>{toppingName}</p>;
+                })}
               </div>
-            );
-          }
-          return null;
-        })}
+              <p>{item.price} vnd</p>
+              <div className="quantity-control">
+                <button onClick={() => handleDecreaseQuantity(key)}>-</button>
+                <p>{item.quantity}</p>
+                <button onClick={() => handleIncreaseQuantity(key)}>+</button>
+              </div>
+              <p>{calculateItemTotal(item).toFixed(2)} vnd</p>
+              <p onClick={() => handleRemoveItem(key)} className="cross">
+                X
+              </p>
+            </div>
+            <hr />
+          </div>
+        ))}
       </div>
       {confirmRemove && (
         <div className="confirm-remove-popup">
@@ -105,17 +92,17 @@ const Cart = () => {
           <div>
             <div className="cart-total-details">
               <p>Tổng Tiền Hàng</p>
-              <p>{getTotalCartAmount()} vnd</p>
+              <p>{getTotalCartAmount().toFixed(2)} vnd</p>
             </div>
             <hr />
             <div className="cart-total-details">
               <p>Thuế (8%)</p>
-              <p>{getTotalCartAmount() * 0.08} vnd</p>
+              <p>{(getTotalCartAmount() * 0.08).toFixed(2)} vnd</p>
             </div>
             <hr />
             <div className="cart-total-details">
               <p>Tổng Thanh Toán</p>
-              <p>{getTotalCartAmount() * 0.08 + getTotalCartAmount()} vnd</p>
+              <p>{(getTotalCartAmount() * 1.08).toFixed(2)} vnd</p>
             </div>
           </div>
           <button
