@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import FoodItem from "../FoodItem/FoodItem";
 import { assets } from "./../../assets/assets";
 import { StoreContext } from "../context/StoreContext";
+import {ENDPOINTS} from "../../constants/common"
 
 const FoodDisplay = ({ category = "All" }) => {
   const { getTotalCartQuantity, getTotalCartAmount } = useContext(StoreContext);
@@ -13,9 +14,8 @@ const FoodDisplay = ({ category = "All" }) => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch("https://fnb-be.vercel.app/api/products");
+        const response = await fetch(ENDPOINTS.PRODUCTS);
         const data = await response.json();
-
         setProducts(data);
       } catch (error) {
         console.error("Error fetching products: ", error);

@@ -48,7 +48,7 @@ const FoodItem = ({ product }) => {
           price={product.basePrice}
           description={product.description}
           image={product.ProductImages[0]?.url}
-          topping={product.Attributes}
+          topping={product.Toppings}
           onClose={handleCloseDetailPopup}
           onAddToCart={handleAddToCart}
           cartQuantity={
@@ -72,6 +72,7 @@ FoodItem.propTypes = {
       })
     ),
     Attributes: PropTypes.array,
+    Toppings: PropTypes.array,
   }).isRequired,
 };
 
