@@ -30,6 +30,7 @@ const Cart = () => {
     return (basePrice + toppingsPrice) * item.quantity;
   };
 
+
   return (
     <div className="cart">
       <div className="cart-logo-container">
@@ -53,12 +54,11 @@ const Cart = () => {
             <div className="cart-items-item">
               <p>{item.name}</p>
               <div className="cart-item-toppings">
-                {item.selectedToppings.map((toppingId) => {
-                  const toppingName = item.Toppings?.find(
-                    (t) => t.id === toppingId
-                  )?.name;
-                  return <p key={toppingId}>{toppingName}</p>;
-                })}
+                {item.selectedToppings.map((topping) => (
+                  <p key={topping.id}>
+                    x{topping.quantity} {topping.name} - {topping.price}
+                  </p>
+                ))}
               </div>
               <p>{item.price} vnd</p>
               <div className="quantity-control">

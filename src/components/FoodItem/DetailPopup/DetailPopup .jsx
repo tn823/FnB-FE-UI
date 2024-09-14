@@ -53,8 +53,10 @@ const DetailPopup = ({ product, onClose }) => {
                 <input
                   type="checkbox"
                   id={toppingOption.id}
-                  checked={selectedToppings.includes(toppingOption.id)}
-                  onChange={() => toggleTopping(toppingOption.id)}
+                  checked={selectedToppings.some(
+                    (t) => t.id === toppingOption.id
+                  )}
+                  onChange={() => toggleTopping(toppingOption)}
                 />
                 <label htmlFor={toppingOption.id}>
                   {toppingOption.name} (+{toppingOption.basePrice} vnd)
