@@ -45,7 +45,7 @@ const DetailPopup = ({ product, onClose }) => {
         />
         <h2>{product.name}</h2>
         <p>{product.description}</p>
-        <p>{product.basePrice} vnd</p>
+        <p>{parseFloat(product.basePrice).toLocaleString("vi-VN")} ₫</p>
         {product.Toppings && product.Toppings.length > 0 && (
           <div className="toppings">
             {product.Toppings.map((toppingOption) => (
@@ -53,11 +53,17 @@ const DetailPopup = ({ product, onClose }) => {
                 <input
                   type="checkbox"
                   id={toppingOption.id}
-                  checked={selectedToppings.includes(toppingOption.id)}
-                  onChange={() => toggleTopping(toppingOption.id)}
+                  checked={selectedToppings.some(
+                    (t) => t.id === toppingOption.id
+                  )}
+                  onChange={() => toggleTopping(toppingOption)}
                 />
                 <label htmlFor={toppingOption.id}>
-                  {toppingOption.name} (+{toppingOption.basePrice} vnd)
+                  {toppingOption.name} (+
+                  {parseFloat(toppingOption.basePrice).toLocaleString(
+                    "vi-VN"
+                  )}{" "}
+                  ₫)
                 </label>
               </div>
             ))}
