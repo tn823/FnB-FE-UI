@@ -23,9 +23,8 @@ const Cart = () => {
 
   const calculateItemTotal = (item) => {
     const basePrice = parseFloat(item.price);
-    const toppingsPrice = item.selectedToppings.reduce((total, toppingId) => {
-      const topping = item.Toppings?.find((t) => t.id === toppingId);
-      return total + (parseFloat(topping?.basePrice) || 0);
+    const toppingsPrice = item.selectedToppings.reduce((total, topping) => {
+      return total + (parseFloat(topping?.price) || 0);
     }, 0);
     return (basePrice + toppingsPrice) * item.quantity;
   };
@@ -44,7 +43,7 @@ const Cart = () => {
           <p>Topping</p>
           <p>Đơn giá</p>
           <p>Số lượng</p>
-          <p>Số tiền</p>
+          <p>Tổng tiền</p>
           <p>Xóa</p>
         </div>
         <br />
@@ -56,17 +55,18 @@ const Cart = () => {
               <div className="cart-item-toppings">
                 {item.selectedToppings.map((topping) => (
                   <p key={topping.id}>
-                    x{topping.quantity} {topping.name} - {topping.price}
+                    x{topping.quantity} {topping.name} -{" "}
+                    {parseFloat(topping.price).toLocaleString("vi-VN")}
                   </p>
                 ))}
               </div>
-              <p>{item.price} vnd</p>
+              <p>{parseFloat(item.price).toLocaleString("vi-VN")} ₫</p>
               <div className="quantity-control">
                 <button onClick={() => handleDecreaseQuantity(key)}>-</button>
                 <p>{item.quantity}</p>
                 <button onClick={() => handleIncreaseQuantity(key)}>+</button>
               </div>
-              <p>{calculateItemTotal(item).toFixed(2)} vnd</p>
+              <p>{calculateItemTotal(item).toLocaleString("vi-VN")} ₫</p>
               <p onClick={() => handleRemoveItem(key)} className="cross">
                 X
               </p>
@@ -92,17 +92,17 @@ const Cart = () => {
           <div>
             <div className="cart-total-details">
               <p>Tổng Tiền Hàng</p>
-              <p>{getTotalCartAmount().toFixed(2)} vnd</p>
+              <p>{getTotalCartAmount().toLocaleString("vi-VN")}₫</p>
             </div>
             <hr />
             <div className="cart-total-details">
               <p>Thuế (8%)</p>
-              <p>{(getTotalCartAmount() * 0.08).toFixed(2)} vnd</p>
+              <p>{(getTotalCartAmount() * 0.08).toLocaleString("vi-VN")}₫</p>
             </div>
             <hr />
             <div className="cart-total-details">
               <p>Tổng Thanh Toán</p>
-              <p>{(getTotalCartAmount() * 1.08).toFixed(2)} vnd</p>
+              <p>{(getTotalCartAmount() * 1.08).toLocaleString("vi-VN")}₫</p>
             </div>
           </div>
           <button
