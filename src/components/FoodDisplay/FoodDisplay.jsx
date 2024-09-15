@@ -44,10 +44,18 @@ const FoodDisplay = ({ category = "All" }) => {
           )}
         </Link>
       </div>
-      <div className="order-total">
-        <p>Thành Tiền</p>
-        <p>{getTotalCartAmount() + getTotalCartAmount() * 0.08} vnd</p>
-      </div>
+      {getTotalCartAmount() > 0 && (
+        <div className="order-total">
+          <p>Thành Tiền</p>
+          <p>
+            {(
+              getTotalCartAmount() +
+              getTotalCartAmount() * 0.08
+            ).toLocaleString("vi-VN")}{" "}
+            ₫
+          </p>
+        </div>
+      )}
     </div>
   );
 };
