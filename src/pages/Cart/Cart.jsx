@@ -87,11 +87,17 @@ const Cart = () => {
         </div>
       )}
       <div className="cart-bottom">
+        <div className="cart-promocode">
+          <p>Ghi chú</p>
+          <div className="cart-promocode-input">
+            <input type="text" placeholder="Ghi chú" />
+          </div>
+        </div>
         <div className="cart-total">
-          <h2>Tổng giá đơn hàng</h2>
+          {/* <h2>Tổng giá đơn hàng</h2> */}
           <div>
             <div className="cart-total-details">
-              <p>Tổng Tiền Hàng</p>
+              <p>Tổng Hóa Đơn</p>
               <p>{getTotalCartAmount().toLocaleString("vi-VN")}₫</p>
             </div>
             <hr />
@@ -112,13 +118,6 @@ const Cart = () => {
           >
             Tiến hành thanh toán
           </button>
-        </div>
-        <div className="cart-promocode">
-          <p>Mã khuyến mãi</p>
-          <div className="cart-promocode-input">
-            <input type="text" placeholder="promo code" />
-          </div>
-          <button>Xác nhận</button>
         </div>
       </div>
     </div>
