@@ -3,6 +3,7 @@ import { Outlet } from "react-router-dom";
 import axios from "axios";
 import SideBar from "./../components/SideBar/SideBar";
 import "./BaseLayout.css";
+import { ENDPOINTS } from "../constants/common";
 
 const BaseLayout = () => {
   const [selectedCategory, setSelectedCategory] = useState({
@@ -17,10 +18,10 @@ const BaseLayout = () => {
     const fetchProducts = async () => {
       try {
         setLoading(true);
-        let url = "https://fnb-be-api.vercel.app/api/products";
+        let url = ENDPOINTS.PRODUCTS;
 
         if (selectedCategory.id !== "all") {
-          url = `https://fnb-be-api.vercel.app/api/products/category/${selectedCategory.id}`;
+          url = `${ENDPOINTS.PRODUCTSBYCATE}/${selectedCategory.id}`;
         }
 
         const response = await axios.get(url);

@@ -20,7 +20,6 @@ export const MENU_LIST = [
   { categoryId: 613739, categoryName: "Cơm", menu_image: salad },
   { categoryId: 605964, categoryName: "RAU", menu_image: kid },
   { categoryId: 488598, categoryName: "CAFE", menu_image: cake },
-  { categoryId: 613739, categoryName: "Cơm", menu_image: drinks },
-  { categoryId: 437160, categoryName: "NƯỚC", menu_image: breakfast },
+  { categoryId: 437160, categoryName: "NƯỚC", menu_image: drinks },
   { categoryId: 605545, categoryName: "BÒ", menu_image: topping },
 ];
