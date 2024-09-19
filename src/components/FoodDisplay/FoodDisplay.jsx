@@ -1,41 +1,31 @@
 import "./FoodDisplay.css";
 import PropTypes from "prop-types";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import FoodItem from "../FoodItem/FoodItem";
 import { assets } from "./../../assets/assets";
 import { StoreContext } from "../context/StoreContext";
-import {ENDPOINTS} from "../../constants/common"
 
-const FoodDisplay = ({ category = "All" }) => {
+const FoodDisplay = ({ category = "All", products = [] }) => {
   const { getTotalCartQuantity, getTotalCartAmount } = useContext(StoreContext);
-  const [products, setProducts] = useState([]);
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch(ENDPOINTS.PRODUCTS);
-        const data = await response.json();
-        setProducts(data);
-      } catch (error) {
-        console.error("Error fetching products: ", error);
-      }
-    };
-    fetchProducts();
-  }, []);
 
   return (
     <div className="food-display" id="food-display">
       <div className="food-items-container">
         <div className="food-items-grid">
           {products.map((product) => {
-            if (category === "All" || category === product.category) {
+            // Kiểm tra categoryName tồn tại trong Category trước khi so sánh
+            const productCategoryName = product.Category?.categoryName || "";
+            
+            // Hiển thị tất cả sản phẩm nếu category === "All" hoặc trùng với category hiện tại
+            if (category === "All" || category === productCategoryName) {
               return <FoodItem key={product.id} product={product} />;
             }
             return null;
           })}
         </div>
       </div>
+
       <div className="basket">
         <Link to="/cart">
           <img src={assets.basket_icon} alt="Basket" />
@@ -44,6 +34,7 @@ const FoodDisplay = ({ category = "All" }) => {
           )}
         </Link>
       </div>
+
       {getTotalCartAmount() > 0 && (
         <div className="order-total">
           <p>Thành Tiền</p>
@@ -61,7 +52,8 @@ const FoodDisplay = ({ category = "All" }) => {
 };
 
 FoodDisplay.propTypes = {
-  category: PropTypes.string,
+  category: PropTypes.string, // Category hiện tại, mặc định là "All"
+  products: PropTypes.array,  // Mảng chứa danh sách sản phẩm
 };
 
 export default FoodDisplay;
