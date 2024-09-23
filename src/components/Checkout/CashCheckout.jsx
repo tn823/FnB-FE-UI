@@ -9,7 +9,7 @@ const CashCheckout = () => {
   const navigate = useNavigate();
   const [showPopup, setShowPopup] = useState(false);
   const [countdown, setCountdown] = useState(5);
-  const { getTotalCartAmount, clearCart, cartItems, createOrder } = useContext(StoreContext);
+  const { getTotalCartAmount, clearCart, cartItems, createOrder, note } = useContext(StoreContext);
 
 const handleConfirmPayment = async () => {
   const totalPrice = getTotalCartAmount() + getTotalCartAmount() * 0.08;
@@ -29,7 +29,7 @@ const handleConfirmPayment = async () => {
 
   const orderData = {
     totalPrice,
-    note: "Ghi chú của đơn hàng",
+    note: note,
     status: 1,
     paymentType: "CASH",
     orderDetails,
