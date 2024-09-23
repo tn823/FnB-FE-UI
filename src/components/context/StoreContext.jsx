@@ -1,6 +1,6 @@
   import { createContext, useState, useEffect } from "react";
   import PropTypes from "prop-types";
-
+  import {ENDPOINTS} from "../../constants/common";
   export const StoreContext = createContext(null);
 
   const StoreContextProvider = (props) => {
@@ -9,6 +9,29 @@
       return savedCart ? JSON.parse(savedCart) : {};
     });
 
+    const createOrder = async (orderData) => {
+      try {
+        const response = await fetch(ENDPOINTS.CREATE_ORDER, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(orderData),
+        });
+
+        if (!response.ok) {
+          throw new Error("Lỗi khi tạo đơn hàng");
+        }
+
+        const data = await response.json();
+        return data;
+      } catch (error) {
+        console.error("Lỗi:", error);
+        throw error;
+      }
+    };
+
+      
     const [confirmRemove, setConfirmRemove] = useState(null);
 
     useEffect(() => {
@@ -40,8 +63,6 @@
         return newCartItems;
       });
     };
-
-    
 
     const removeFromCart = (itemId, selectedToppings = []) => {
       setCartItems((prevCartItems) => {
@@ -150,6 +171,7 @@
       handleRemoveItem,
       confirmRemoveItem,
       clearCart,
+      createOrder,
     };
 
     return (

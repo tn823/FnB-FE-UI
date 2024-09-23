@@ -23,7 +23,10 @@ const Checkout = () => {
       <div className="checkout">
         <h2 className="title">
           Số Tiền Quý Khách Cần Thanh Toán:{" "}
-          {getTotalCartAmount() + getTotalCartAmount() * 0.08} vnd
+          {(getTotalCartAmount() + getTotalCartAmount() * 0.08).toLocaleString(
+            "vi-VN"
+          )}{" "}
+          ₫
         </h2>
         <hr />
         <h3 className="suggest">

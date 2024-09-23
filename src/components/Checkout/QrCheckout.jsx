@@ -8,8 +8,40 @@ import { StoreContext } from "./../../components/context/StoreContext";
 const QrCheckout = () => {
   const navigate = useNavigate();
   const [showPopup, setShowPopup] = useState(false);
-  const [countdown, setCountdown] = useState(180);
-  const { getTotalCartAmount, clearCart } = useContext(StoreContext);
+  const [countdown, setCountdown] = useState(5);
+  const { getTotalCartAmount, clearCart, cartItems, createOrder } = useContext(StoreContext);
+
+  const handleConfirmPayment = async () => {
+    const totalPrice = getTotalCartAmount() + getTotalCartAmount() * 0.08;
+
+    const orderDetails = Object.values(cartItems).map((item) => ({
+      productId: item.id,
+      name: item.name,
+      basePrice: parseFloat(item.price),
+      quantity: item.quantity,
+      OrderDetailToppings: item.selectedToppings.map((topping) => ({
+        toppingId: topping.id,
+        name: topping.name,
+        basePrice: parseFloat(topping.price),
+        quantity: topping.quantity,
+      })),
+    }));
+
+    const orderData = {
+      totalPrice,
+      note: "Ghi chú của đơn hàng",
+      status: 1,
+      paymentType: "QRCODE",
+      orderDetails,
+    };
+
+    try {
+      await createOrder(orderData);
+      setShowPopup(true);
+    } catch (error) {
+      console.error("Lỗi khi tạo đơn hàng:", error);
+    }
+  };
 
   const handleLogoClick = () => {
     navigate("/home");
@@ -42,12 +74,15 @@ const QrCheckout = () => {
       <div className="qr-checkout">
         <h2 className="qr-title">
           Số Tiền Quý Khách Cần Thanh Toán:{" "}
-          {getTotalCartAmount() + getTotalCartAmount() * 0.08} vnd
+          {(getTotalCartAmount() + getTotalCartAmount() * 0.08).toLocaleString(
+            "vi-VN"
+          )}{" "}
+          ₫
         </h2>
         <hr />
         <div className="qr-payment-options">
           <button
-            onClick={() => setShowPopup(true)}
+            onClick={(() => setShowPopup(true), handleConfirmPayment)}
             className="qr-payment-button"
           >
             XÁC NHẬN
