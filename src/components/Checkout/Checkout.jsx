@@ -1,4 +1,4 @@
-import "./Checkout.css";
+import "./style/Checkout.css";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { assets } from "../../assets/assets";

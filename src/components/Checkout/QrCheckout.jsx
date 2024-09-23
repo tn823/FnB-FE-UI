@@ -1,4 +1,4 @@
-import "./QrCheckout.css";
+import "./style/QrCheckout.css";
 import { Link } from "react-router-dom";
 import { assets } from "../../assets/assets";
 import { useContext, useState, useEffect, useCallback } from "react";
