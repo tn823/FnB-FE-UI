@@ -13,6 +13,8 @@ const Cart = () => {
     confirmRemoveItem,
     cartItems,
     confirmRemove,
+    note,
+    updateNote,
   } = useContext(StoreContext);
 
   const navigate = useNavigate();
@@ -27,6 +29,10 @@ const Cart = () => {
       return total + (parseFloat(topping?.price) || 0);
     }, 0);
     return (basePrice + toppingsPrice) * item.quantity;
+  };
+
+  const handleNoteChange = (e) => {
+    updateNote(e.target.value);
   };
 
   return (
@@ -89,7 +95,12 @@ const Cart = () => {
         <div className="cart-promocode">
           <p>Ghi chú</p>
           <div className="cart-promocode-input">
-            <input type="text" placeholder="Ghi chú" />
+            <input
+              type="text"
+              placeholder="Ghi chú"
+              value={note}
+              onChange={handleNoteChange}
+            />
           </div>
         </div>
         <div className="cart-total">

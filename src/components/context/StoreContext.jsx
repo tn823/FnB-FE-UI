@@ -9,6 +9,12 @@
       return savedCart ? JSON.parse(savedCart) : {};
     });
 
+    const [note, setNote] = useState("");
+
+    const updateNote = (newNote) => {
+      setNote(newNote);
+    };
+
     const createOrder = async (orderData) => {
       try {
         const response = await fetch(ENDPOINTS.CREATE_ORDER, {
@@ -172,6 +178,8 @@
       confirmRemoveItem,
       clearCart,
       createOrder,
+      note,
+      updateNote,
     };
 
     return (
