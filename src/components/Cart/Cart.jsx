@@ -1,4 +1,4 @@
-import "./Cart.css";
+import "./style/Cart.css";
 import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { assets } from "../../assets/assets";
@@ -28,7 +28,6 @@ const Cart = () => {
     }, 0);
     return (basePrice + toppingsPrice) * item.quantity;
   };
-
 
   return (
     <div className="cart">
@@ -98,17 +97,17 @@ const Cart = () => {
           <div>
             <div className="cart-total-details">
               <p>Tổng Hóa Đơn</p>
-              <p>{getTotalCartAmount().toLocaleString("vi-VN")}₫</p>
+              <p>{getTotalCartAmount().toLocaleString("vi-VN")} ₫</p>
             </div>
             <hr />
             <div className="cart-total-details">
               <p>Thuế (8%)</p>
-              <p>{(getTotalCartAmount() * 0.08).toLocaleString("vi-VN")}₫</p>
+              <p>{(getTotalCartAmount() * 0.08).toLocaleString("vi-VN")} ₫</p>
             </div>
             <hr />
             <div className="cart-total-details">
               <p>Tổng Thanh Toán</p>
-              <p>{(getTotalCartAmount() * 1.08).toLocaleString("vi-VN")}₫</p>
+              <p>{(getTotalCartAmount() * 1.08).toLocaleString("vi-VN")} ₫</p>
             </div>
           </div>
           <button

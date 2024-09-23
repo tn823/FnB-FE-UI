@@ -1,15 +1,15 @@
 import Layout from "./layout/Layout";
 import Home from "../src/pages/Home/Home";
-import Cart from "../src/pages/Cart/Cart";
+import Cart from "../src/components/Cart/Cart";
 import { useEffect, useState } from "react";
 import Welcome from "./pages/Welcome/Welcome";
 import { AnimatePresence } from "framer-motion";
 import PopupLayout from "./layout/PopupLayout";
 import BaseLayout from "../src/layout/BaseLayout";
-import QrCheckout from "./pages/Checkout/QrCheckout";
-import Checkout from "../src/pages/Checkout/Checkout";
+import QrCheckout from "../src/components/Checkout/QrCheckout";
+import Checkout from "../src/components/Checkout/Checkout";
 import Preloader from "../src/components/ui/preloader";
-import CashCheckout from "./pages/Checkout/CashCheckout";
+import CashCheckout from "../src/components/Checkout/CashCheckout";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 const App = () => {
