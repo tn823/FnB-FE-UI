@@ -9,25 +9,33 @@ const Welcome = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       const now = new Date();
-      const ictOffset = 7 * 60; // ICT timezone offset in minutes
-      const ictTime = new Date(now.getTime() + ictOffset * 60 * 1000);
-      setCurrentDate(ictTime);
+      setCurrentDate(now); // Cập nhật thời gian hiện tại
     }, 1000); // Update every second
 
     return () => clearInterval(interval); // Clean up interval on unmount
   }, []);
 
-  const formattedDate = currentDate.toLocaleDateString("en-US", {
+  // Định dạng ngày tháng và giờ phút theo chuẩn Việt Nam
+  const formattedDate = currentDate.toLocaleDateString("vi-VN", {
     year: "numeric",
-    month: "short",
+    month: "long",
     day: "numeric",
   });
+
+  const formattedTime = currentDate.toLocaleTimeString("vi-VN", {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  });
+
   return (
     <>
       <div className="creator h-screen">
         <div className="c-heading">
           <div className="c-heading__top">
-            <h2 className="text-default">Site of the Day - {formattedDate}</h2>
+            <h2 className="text-default">
+              Site of the Day - {formattedDate} {formattedTime}
+            </h2>
           </div>
           <div className="c-heading__middle">
             <h1 className="heading-1">
@@ -40,8 +48,8 @@ const Welcome = () => {
             </h1>
           </div>
           <div className="c-heading__bottom text-lg">
-            as well know and we are very busy all days advice you. Advice you to
-            call us of before arriving
+            Chào mừng bạn đến với cửa hàng! Đặt hàng ngay để trải nghiệm dịch vụ
+            nhanh chóng và tiện lợi.
           </div>
         </div>
         <div className="center-button">
