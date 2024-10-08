@@ -16,7 +16,7 @@ export default function Layout() {
         className="fixed top-0 left-0 h-screen w-screen bg-white-100 flex justify-center items-center"
       >
         <span className="font-bold text-2xl tracking-tight text-orange-500">
-          Create by Smurf.Village
+          Create by tn823
         </span>
       </motion.div>
     </div>
