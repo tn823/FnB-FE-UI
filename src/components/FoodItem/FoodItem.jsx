@@ -37,7 +37,7 @@ const FoodItem = ({ product }) => {
           <p>{product.name}</p>
         </div>
         <p className="food-item-desc">
-          {product.description || "No description available"}
+          {product.description}
         </p>
         <p className="food-item-price">
           {parseFloat(product.basePrice).toLocaleString("vi-VN")} ₫
