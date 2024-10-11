@@ -7,12 +7,12 @@ import { StoreContext } from "./../../components/context/StoreContext";
 
 const Checkout = () => {
   const navigate = useNavigate();
-
   const { getTotalCartAmount } = useContext(StoreContext);
 
   const handleLogoClick = () => {
     navigate("/home");
   };
+
   return (
     <div>
       <div className="checkout-logo">
@@ -21,7 +21,7 @@ const Checkout = () => {
         </Link>
       </div>
       <div className="checkout">
-        <h2 className="title">
+        <h2 className="checkout-title">
           Số Tiền Quý Khách Cần Thanh Toán:{" "}
           {(getTotalCartAmount() + getTotalCartAmount() * 0.08).toLocaleString(
             "vi-VN"
@@ -29,24 +29,27 @@ const Checkout = () => {
           ₫
         </h2>
         <hr />
-        <h3 className="suggest">
+        <h3 className="checkout-suggest">
           Quý khách có thể lựa chọn hình thức thanh toán
         </h3>
-        <div className="payment-options">
+        <div className="checkout-payment-options">
           <button
             onClick={() => navigate("/qr-checkout")}
-            className="payment-button"
+            className="checkout-payment-button"
           >
             QR CODE (APP NGÂN HÀNG)
           </button>
           <button
             onClick={() => navigate("/cash-checkout")}
-            className="payment-button"
+            className="checkout-payment-button"
           >
             TIỀN MẶT
           </button>
         </div>
-        <button onClick={() => navigate("/cart")} className="back-button">
+        <button
+          onClick={() => navigate("/cart")}
+          className="checkout-back-button"
+        >
           QUAY LẠI GIỎ HÀNG
         </button>
       </div>

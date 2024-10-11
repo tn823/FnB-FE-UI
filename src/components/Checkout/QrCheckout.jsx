@@ -8,10 +8,12 @@ import { StoreContext } from "./../../components/context/StoreContext";
 const QrCheckout = () => {
   const navigate = useNavigate();
   const [showPopup, setShowPopup] = useState(false);
-  const [countdown, setCountdown] = useState(5);
-  const { getTotalCartAmount, clearCart, cartItems, createOrder, note } = useContext(StoreContext);
+  const [countdown, setCountdown] = useState(null);
+  const { getTotalCartAmount, clearCart, cartItems, createOrder, note } =
+    useContext(StoreContext);
 
   const handleConfirmPayment = async () => {
+    setShowPopup(true);
     const totalPrice = getTotalCartAmount() + getTotalCartAmount() * 0.08;
 
     const orderDetails = Object.values(cartItems).map((item) => ({
@@ -37,7 +39,7 @@ const QrCheckout = () => {
 
     try {
       await createOrder(orderData);
-      setShowPopup(true);
+      setCountdown(10);
     } catch (error) {
       console.error("Lỗi khi tạo đơn hàng:", error);
     }
@@ -58,7 +60,7 @@ const QrCheckout = () => {
     let timer;
     if (showPopup && countdown > 0) {
       timer = setInterval(() => setCountdown(countdown - 1), 1000);
-    } else if (showPopup && countdown === 0) {
+    } else if (countdown === 0) {
       handleClosePopup();
     }
     return () => clearInterval(timer);
@@ -81,10 +83,8 @@ const QrCheckout = () => {
         </h2>
         <hr />
         <div className="qr-payment-options">
-          <button
-            onClick={(() => setShowPopup(true), handleConfirmPayment)}
-            className="qr-payment-button"
-          >
+          <img src={assets.qr_10k} alt="QR Code" className="qr-code-img" />
+          <button onClick={handleConfirmPayment} className="qr-payment-button">
             XÁC NHẬN
           </button>
         </div>
@@ -92,14 +92,14 @@ const QrCheckout = () => {
           <div className="qr-popup">
             <div className="qr-popup-content">
               <h3>Thanh toán thành công</h3>
-              <p>Quý khách vui lòng quét mã QR đẻ thanh toán </p>
-              <p>Chuyển hướng sau {countdown} giây...</p>{" "}
-              {/* Display countdown */}
-              {/*<button onClick={handlePrintBill}>In hóa đơn</button>*/}
+              <p>Quý khách vui lòng nhận hóa đơn và đến quầy để nhận món.</p>
+              {countdown !== null && (
+                <p>Chuyển hướng sau {countdown} giây...</p>
+              )}
             </div>
           </div>
         )}
-        v<h3>Quý khách vui lòng ghé quầy thanh toán để hoàn tất đơn hàng. </h3>
+        <h3>Quý khách vui lòng ghé quầy thanh toán để hoàn tất đơn hàng. </h3>
         <button
           onClick={() => navigate("/checkout")}
           className="qr-back-button"
