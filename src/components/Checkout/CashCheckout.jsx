@@ -8,40 +8,42 @@ import { StoreContext } from "./../../components/context/StoreContext";
 const CashCheckout = () => {
   const navigate = useNavigate();
   const [showPopup, setShowPopup] = useState(false);
-  const [countdown, setCountdown] = useState(5);
-  const { getTotalCartAmount, clearCart, cartItems, createOrder, note } = useContext(StoreContext);
+  const [countdown, setCountdown] = useState(null); // Khởi tạo countdown là null
+  const { getTotalCartAmount, clearCart, cartItems, createOrder, note } =
+    useContext(StoreContext);
 
-const handleConfirmPayment = async () => {
-  const totalPrice = getTotalCartAmount() + getTotalCartAmount() * 0.08;
-
-  const orderDetails = Object.values(cartItems).map((item) => ({
-    productId: item.id,
-    name: item.name,
-    basePrice: parseFloat(item.price),
-    quantity: item.quantity,
-    OrderDetailToppings: item.selectedToppings.map((topping) => ({
-      toppingId: topping.id,
-      name: topping.name,
-      basePrice: parseFloat(topping.price),
-      quantity: topping.quantity,
-    })),
-  }));
-
-  const orderData = {
-    totalPrice,
-    note: note,
-    status: 1,
-    paymentType: "CASH",
-    orderDetails,
-  };
-
-  try {
-    await createOrder(orderData);
+  const handleConfirmPayment = async () => {
     setShowPopup(true);
-  } catch (error) {
-    console.error("Lỗi khi tạo đơn hàng:", error);
-  }
-};
+    const totalPrice = getTotalCartAmount() + getTotalCartAmount() * 0.08;
+
+    const orderDetails = Object.values(cartItems).map((item) => ({
+      productId: item.id,
+      name: item.name,
+      basePrice: parseFloat(item.price),
+      quantity: item.quantity,
+      OrderDetailToppings: item.selectedToppings.map((topping) => ({
+        toppingId: topping.id,
+        name: topping.name,
+        basePrice: parseFloat(topping.price),
+        quantity: topping.quantity,
+      })),
+    }));
+
+    const orderData = {
+      totalPrice,
+      note: note,
+      status: 1,
+      paymentType: "CASH",
+      orderDetails,
+    };
+
+    try {
+      await createOrder(orderData);
+      setCountdown(10);
+    } catch (error) {
+      console.error("Lỗi khi tạo đơn hàng:", error);
+    }
+  };
 
   const handleLogoClick = () => {
     navigate("/home");
@@ -55,9 +57,9 @@ const handleConfirmPayment = async () => {
 
   useEffect(() => {
     let timer;
-    if (showPopup && countdown > 0) {
+    if (showPopup !== null && countdown > 0) {
       timer = setInterval(() => setCountdown(countdown - 1), 1000);
-    } else if (showPopup && countdown === 0) {
+    } else if (countdown === 0) {
       handleClosePopup();
     }
     return () => clearInterval(timer);
@@ -81,7 +83,7 @@ const handleConfirmPayment = async () => {
         <hr />
         <div className="cash-payment-options">
           <button
-            onClick={(() => setShowPopup(true), handleConfirmPayment)}
+            onClick={handleConfirmPayment}
             className="cash-payment-button"
           >
             XÁC NHẬN
@@ -91,8 +93,10 @@ const handleConfirmPayment = async () => {
           <div className="cash-popup">
             <div className="cash-popup-content">
               <h3>Thanh toán thành công</h3>
-              <p>Quý khách vui lòng nhận hóa đơn</p>
-              <p>Chuyển hướng sau {countdown} giây...</p>{" "}
+              <p>Quý khách vui lòng nhận hóa đơn và đến quầy để nhận món.</p>
+              {countdown !== null && (
+                <p>Chuyển hướng sau {countdown} giây...</p>
+              )}{" "}
             </div>
           </div>
         )}

@@ -44,8 +44,8 @@
   cursor: pointer;
   border-radius: 30px;
   transition: transform 0.2s;
-  padding: 10px;
-  border-radius: 8px;
+  font-size: 20px;
+  font-weight: bold;
 }
 .cash-payment-button:hover {
   transform: scale(1.05);
