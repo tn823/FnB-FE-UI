@@ -1,8 +1,46 @@
-# React + Vite
+# F&B User Front-End Project
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 📝 Project Description
 
-Currently, two official plugins are available:
+This project is the Front-End system for the user side of the F&B platform. It allows customers to browse menus, customize orders, and make purchases through a responsive web interface.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
+
+## 🧑‍💻 Tech Stack
+
+The following technologies are used in this project:
+
+- **React.js**: A JavaScript library for building user interfaces
+- **Vite**: Fast build tool to enhance the development experience
+- **Tailwind CSS**: Utility-first CSS framework for styling
+- **Axios**: HTTP client for API requests
+
+---
+
+## 🚀 Getting Started
+
+To start the project locally, follow the steps below:
+
+1. **Clone the repository**:
+
+    ```bash
+    git clone https://github.com/tn823/FnB-FE-UI.git
+    ```
+
+2. **Install dependencies**:
+
+    ```bash
+    npm install
+    ```
+
+3. **Run the development server**:
+
+    ```bash
+    npm run dev
+    ```
+
+4. **Access the project**:
+
+    Open your browser at: [http://localhost:5173](http://localhost:5173)
+
+---
